@@ -1,0 +1,68 @@
+import java.util.*;
+
+public class AgendaContactosScanner {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Agenda agenda = new Agenda();
+        int opcion;
+        do {
+            System.out.println("\n****** MENÚ AGENDA DE CONTACTOS *****");
+            System.out.println("1. Anyadir nuevo contacto");
+            System.out.println("2. Mostrar todos los contactos");
+            System.out.println("3. Borrar un contacto por nombre");
+            System.out.println("4. Borrar todos los contactos");
+            System.out.println("5. Salir");
+            System.out.print("Selecciona una opción: ");
+
+            while (!sc.hasNextInt()) {
+                System.out.print("Por favor, introduce un número válido: ");
+                sc.next();
+            }
+
+            opcion = sc.nextInt();
+            sc.nextLine();
+            switch (opcion) {
+                case 1:
+                    System.out.println("\n****** Añadir nuevo contacto");
+                    System.out.print("Introduce el nombre: ");
+                    String nombre = sc.nextLine();
+                    System.out.print("Introduce el teléfono: ");
+                    int telefono = sc.nextInt();
+                    System.out.print("Introduce el día de nacimiento: ");
+                    int dia = sc.nextInt();
+                    System.out.print("Introduce el mes de nacimiento: ");
+                    int mes = sc.nextInt();
+                    System.out.print("Introduce el año de nacimiento: ");
+                    int anio = sc.nextInt();
+                    sc.nextLine();
+                    agenda.anadeAgenda(new Contacto(nombre, telefono, dia, mes, anio));
+                    System.out.println("Contacto añadido correctamente");
+                    break;
+                case 2:
+                    System.out.println("\n****** Mostrando contactos");
+                    agenda.muestraAgenda();
+                    break;
+                case 3:
+                    System.out.println("\n****** Borrar contacto por nombre");
+                    System.out.print("Introduce el nombre del contacto a borrar: ");
+                    String nombreBorrar = sc.nextLine();
+                    if (agenda.borraContacto(nombreBorrar)) {
+                        System.out.println("Contacto borrado correctamente");
+                    } else {
+                        System.out.println("No se encontró ningún contacto con ese nombre");}
+                    break;
+                case 4:
+                    System.out.println("\n****** Borrar todos los contactos");
+                    agenda.borrarAgenda();
+                    System.out.println("Todos los contactos han sido eliminados");
+                    break;
+                case 5:
+                    break;
+                default:
+                    System.out.println("Opción no válida. Intentalo de nuevo");
+            }
+        } while (opcion != 5);
+        sc.close();
+    }
+}
