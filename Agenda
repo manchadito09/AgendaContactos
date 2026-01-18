@@ -1,0 +1,71 @@
+
+import java.util.*;
+
+public class Agenda {
+
+    private ArrayList<Contacto> contactos;
+
+    public Agenda() {
+        contactos = new ArrayList<>();
+    }
+
+    public ArrayList<Contacto> getMisContactos() {
+        return contactos;
+    }
+
+    public boolean anadeAgenda(Contacto c) {
+        if (contactos.contains(c)) {
+            return false;
+        } else {
+            contactos.add(c);
+            return true;
+        }
+    }
+
+    public boolean anadeAgenda(String n, int t, int d, int m, int a) {
+        return anadeAgenda(new Contacto(n, t, d, m, a));
+    }
+
+    public int anadeAgenda(ArrayList<Contacto> aux) {
+        int contador = 0;
+        if (aux.isEmpty()) {
+            return contador;
+        }
+        for (Contacto c : aux) {
+            if (anadeAgenda(c)) {
+                contador++;
+            }
+        }
+        return contador;
+    }
+
+    public void borrarAgenda() {
+        if (!contactos.isEmpty()) {
+            contactos.clear();
+        }
+    }
+
+    public boolean borraContacto(Contacto c) {
+        for (Contacto e : contactos) {
+            if (e.equals(c)) {
+                contactos.remove(c);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean borraContacto(String n) {
+        return borraContacto(new Contacto(n, 0, 1, 1, 1920));
+    }
+
+    public void muestraAgenda() {
+        String aux = "";
+        int num = 0;
+        for (Contacto c : contactos) {
+            aux += c.toString();
+            num++;
+        }
+        System.out.println("La agenda tiene " + num + " contactos.\n" + aux);
+    }
+}
